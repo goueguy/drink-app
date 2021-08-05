@@ -1,10 +1,11 @@
 @extends('layouts.template')
 @section('title','Utilisateurs')
+@section('module-name','Utilisateurs')
 @section('content')
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><span class="float-right"><a href="{{route('admin.users')}}">Liste</a></span></h6>
+            <h6 class="m-0 font-weight-bold text-primary">Modification<span class="float-right"><a href="{{route('admin.users')}}">Liste</a></span></h6>
         </div>
         <form action="{{route('admin.users.update',['id'=>$user->id])}}" method="POST">
             @csrf

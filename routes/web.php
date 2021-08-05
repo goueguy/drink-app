@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
 #------------------------ESPACE ADMIN------------------------#
 Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>['isAdmin']],function () {
     Route::get('dashboard', [AdminController::class,'dashboard'])->name('dashboard');
+
     #------------------------UTILISATEURS----------------------------
     Route::prefix('users')->group(function () {
         Route::get('/',[UserController::class,'index'])->name('users');
@@ -36,4 +37,25 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>['isAdmin']],functi
         Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
         Route::get('/delete/{id}',[UserController::class,'destroy'])->name('users.delete');
     });
+    #------------------------RÔLES UTILISATEURS----------------------------
+    Route::prefix('roles')->group(function () {
+        Route::get('/',[RoleController::class,'index'])->name('roles');
+        Route::get('/create',[RoleController::class,'create'])->name('roles.create');
+        Route::get('/permission/{role}',[RoleController::class,'permission'])->name('roles.permission');
+        Route::post('/store',[RoleController::class,'store'])->name('roles.store');
+        Route::get('/edit/{id}',[RoleController::class,'edit'])->name('roles.edit');
+        Route::post('/update/{id}',[RoleController::class,'update'])->name('roles.update');
+        Route::get('/delete/{id}',[RoleController::class,'destroy'])->name('roles.delete');
+    });
+
+    #------------------------PERMISSIONS UTILISATEURS----------------------------
+    Route::prefix('permissions')->group(function () {
+        Route::get('/',[PermissionController::class,'index'])->name('permissions');
+        Route::get('/create',[PermissionController::class,'create'])->name('permissions.create');
+        Route::post('/store',[PermissionController::class,'store'])->name('permissions.store');
+        Route::get('/edit/{id}',[PermissionController::class,'edit'])->name('permissions.edit');
+        Route::post('/update/{id}',[PermissionController::class,'update'])->name('permissions.update');
+        Route::get('/delete/{id}',[PermissionController::class,'destroy'])->name('permissions.delete');
+    });
+
 });

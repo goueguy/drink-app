@@ -31,21 +31,12 @@
                 {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                 <a class="collapse-item" href="{{route('admin.users')}}">Liste</a>
                 <a class="collapse-item" href="{{route('admin.users.create')}}">Ajouter</a>
-            </div>
-        </div>
-    </li>
-    <!-- Rôles -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#roles"
-            aria-expanded="true" aria-controls="roles">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Rôles</span>
-        </a>
-        <div id="roles" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                <a class="collapse-item" href="buttons.html">Liste</a>
-                <a class="collapse-item" href="cards.html">Ajouter</a>
+                <h6 class="collapse-header">Roles</h6>
+                <a class="collapse-item" href="{{route('admin.roles')}}">Liste</a>
+                <a class="collapse-item" href="{{route('admin.roles.create')}}">Ajouter</a>
+                <h6 class="collapse-header">Permissions</h6>
+                <a class="collapse-item" href="{{route('admin.permissions')}}">Liste</a>
+                <a class="collapse-item" href="{{route('admin.permissions.create')}}">Ajouter</a>
             </div>
         </div>
     </li>
