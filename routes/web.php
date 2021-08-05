@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\FournisseurController;
+use App\Http\Controllers\Admin\CategoryDrinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,15 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>['isAdmin']],functi
         Route::get('/edit/{id}',[FournisseurController::class,'edit'])->name('fournisseurs.edit');
         Route::post('/update/{id}',[FournisseurController::class,'update'])->name('fournisseurs.update');
         Route::get('/delete/{id}',[FournisseurController::class,'destroy'])->name('fournisseurs.delete');
+    });
+    #------------------------CATEGORIES DE BOISSONS---------------------------
+    Route::prefix('categories')->group(function () {
+        Route::get('/',[CategoryDrinkController::class,'index'])->name('categories');
+        Route::get('/create',[CategoryDrinkController::class,'create'])->name('categories.create');
+        Route::post('/store',[CategoryDrinkController::class,'store'])->name('categories.store');
+        Route::get('/edit/{id}',[CategoryDrinkController::class,'edit'])->name('categories.edit');
+        Route::post('/update/{id}',[CategoryDrinkController::class,'update'])->name('categories.update');
+        Route::get('/delete/{id}',[CategoryDrinkController::class,'destroy'])->name('categories.delete');
     });
 
 });
