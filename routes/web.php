@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\FournisseurController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,15 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>['isAdmin']],functi
         Route::get('/edit/{id}',[PermissionController::class,'edit'])->name('permissions.edit');
         Route::post('/update/{id}',[PermissionController::class,'update'])->name('permissions.update');
         Route::get('/delete/{id}',[PermissionController::class,'destroy'])->name('permissions.delete');
+    });
+    #------------------------FOURNISSEURS----------------------------
+    Route::prefix('fournisseurs')->group(function () {
+        Route::get('/',[FournisseurController::class,'index'])->name('fournisseurs');
+        Route::get('/create',[FournisseurController::class,'create'])->name('fournisseurs.create');
+        Route::post('/store',[FournisseurController::class,'store'])->name('fournisseurs.store');
+        Route::get('/edit/{id}',[FournisseurController::class,'edit'])->name('fournisseurs.edit');
+        Route::post('/update/{id}',[FournisseurController::class,'update'])->name('fournisseurs.update');
+        Route::get('/delete/{id}',[FournisseurController::class,'destroy'])->name('fournisseurs.delete');
     });
 
 });
