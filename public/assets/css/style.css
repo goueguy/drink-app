@@ -1,0 +1,9 @@
+.login-image{
+    background: url("/assets/img/login.jpg");
+    background-size: cover;
+}
+
+body{
+    background: #ddd;
+    min-height: 500px;
+}
