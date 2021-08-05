@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Drink;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\CategoryDrink;
+use App\Models\Fournisseur;
 
-class CategorieController extends Controller
+class DrinkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,8 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        //
+        $data['drinks'] = Drink::orderBy('id','desc')->get();
+        return view('admin.boissons.list',$data);
     }
 
     /**
@@ -24,7 +28,9 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        //
+        $categories = CategoryDrink::all();
+        $fournisseurs = Fournisseur::all();
+        return view('admin.boissons.create',compact('categories','fournisseurs'));
     }
 
     /**

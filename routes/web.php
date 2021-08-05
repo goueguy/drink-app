@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DrinkController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\FournisseurController;
 use App\Http\Controllers\Admin\CategoryDrinkController;
@@ -67,6 +68,15 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>['isAdmin']],functi
         Route::get('/edit/{id}',[FournisseurController::class,'edit'])->name('fournisseurs.edit');
         Route::post('/update/{id}',[FournisseurController::class,'update'])->name('fournisseurs.update');
         Route::get('/delete/{id}',[FournisseurController::class,'destroy'])->name('fournisseurs.delete');
+    });
+    #------------------------BOISSONS---------------------------
+    Route::prefix('drinks')->group(function () {
+        Route::get('/',[DrinkController::class,'index'])->name('drinks');
+        Route::get('/create',[DrinkController::class,'create'])->name('drinks.create');
+        Route::post('/store',[DrinkController::class,'store'])->name('drinks.store');
+        Route::get('/edit/{id}',[DrinkController::class,'edit'])->name('drinks.edit');
+        Route::post('/update/{id}',[DrinkController::class,'update'])->name('drinks.update');
+        Route::get('/delete/{id}',[DrinkController::class,'destroy'])->name('drinks.delete');
     });
     #------------------------CATEGORIES DE BOISSONS---------------------------
     Route::prefix('categories')->group(function () {
