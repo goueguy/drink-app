@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DrinkController;
+use App\Http\Controllers\Admin\CommandeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\FournisseurController;
 use App\Http\Controllers\Admin\CategoryDrinkController;
@@ -86,6 +87,17 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>['isAdmin']],functi
         Route::get('/edit/{id}',[CategoryDrinkController::class,'edit'])->name('categories.edit');
         Route::post('/update/{id}',[CategoryDrinkController::class,'update'])->name('categories.update');
         Route::get('/delete/{id}',[CategoryDrinkController::class,'destroy'])->name('categories.delete');
+    });
+    #------------------------COMMANDES DE BOISSONS---------------------------
+    Route::prefix('commandes')->group(function () {
+        Route::get('/',[CommandeController::class,'index'])->name('commandes');
+        Route::get('/create',[CommandeController::class,'create'])->name('commandes.create');
+        Route::post('/store',[CommandeController::class,'store'])->name('commandes.store');
+        Route::get('/change/{id}',[CommandeController::class,'changeStatus'])->name('commandes.change-status');
+        Route::get('/edit/{id}',[CommandeController::class,'edit'])->name('commandes.edit');
+        Route::get('/show/{id}',[CommandeController::class,'show'])->name('commandes.show');
+        Route::post('/update/{id}',[CommandeController::class,'update'])->name('commandes.update');
+        Route::get('/delete/{id}',[CommandeController::class,'destroy'])->name('commandes.delete');
     });
 
 });

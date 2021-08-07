@@ -104,9 +104,7 @@
             </div>
         </div>
     </div>
-
     @include('layouts.includes._scripts')
-
+    <script src="{{asset('assets/js/commande.js')}}"></script>
 </body>
-
 </html>

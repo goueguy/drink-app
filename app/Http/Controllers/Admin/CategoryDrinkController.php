@@ -39,7 +39,7 @@ class CategoryDrinkController extends Controller
     {
         $request->validate([
             'name'=>'required|string|min:3',
-            'description'=>'string|max:15',
+            'description'=>'string',
         ]);
 
         $newCategory = new CategoryDrink();

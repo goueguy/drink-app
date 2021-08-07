@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Drink;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CategoryDrink extends Model
 {
@@ -12,4 +13,8 @@ class CategoryDrink extends Model
         'name',
         'description',
     ];
+
+    public function drinks(){
+        return $this->hasMany(Drink::class);
+    }
 }

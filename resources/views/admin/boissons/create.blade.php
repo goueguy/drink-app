@@ -7,7 +7,7 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Ajout<span class="float-right"><a href="{{route('admin.drinks')}}">Liste</a></span></h6>
         </div>
-        <form action="{{route('admin.drinks.store')}}" method="POST">
+        <form action="{{route('admin.drinks.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -51,10 +51,26 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                         <div class="form-group">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Mot de passe" name="password" value="{{old('password')}}">
-                            @error('password')
+                            <input type="number" class="form-control @error('quantite') is-invalid @enderror" placeholder="Quantite" name="quantite" value="{{old('quantite')}}">
+                            @error('quantite')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="number" class="form-control @error('prix_unitaire') is-invalid @enderror" placeholder="Prix Unitaire" name="prix_unitaire" value="{{old('prix_unitaire')}}">
+                            @error('prix_unitaire')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{old('image')}}">
+                            @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>

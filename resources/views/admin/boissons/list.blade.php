@@ -32,9 +32,9 @@
                                 <td>{{$boisson->description}}</td>
                                 <td>{{$boisson->quantite}}</td>
                                 <td>{{$boisson->prix_unitaire}}</td>
-                                <td>{{$boisson->categorie_drink_id}}</td>
+                                <td>{{$boisson->category->name}}</td>
                                 <td>{{$boisson->fournisseur_id}}</td>
-                                <td><img src="{{asset('uploads/boissons/'.$boisson->image)}}" alt="{{$boisson->name}}" class="h-25"></td>
+                                <td><img src="{{asset('uploads/boissons/'.$boisson->image)}}" alt="{{$boisson->name}}" style="height:30px;width:30px"></td>
                                 <td>
                                     <a href="{{route('admin.drinks.edit',['id'=>$boisson->id])}}"><i class="fa fa-edit"></i></a>
                                     <a href="{{route('admin.drinks.delete',['id'=>$boisson->id])}}" onclick="return confirm('êtes vous sûre');"><i class="fa fa-trash"></i></a>
