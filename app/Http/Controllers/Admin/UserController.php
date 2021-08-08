@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -47,7 +48,6 @@ class UserController extends Controller
             'email'=>'required|email|unique:users',
             'role'=>'required'
         ]);
-
         $newUser = new User();
         $newUser->name = $request->name;
         $newUser->lastname = $request->lastname;
@@ -88,7 +88,21 @@ class UserController extends Controller
         $user = User::find($id);
         return view('admin.users.edit',compact('roles','user'));
     }
-
+    public function editPassword($id){
+        $user = User::find($id);
+        return view('admin.users.edit-password',compact('user'));
+    }
+    public function updateUserPassword(Request $request,$id){
+        $update = $this->setPassword($request->password,$id);
+        $response = ($update) ? [
+            "status"=>"success",
+            "message"=>"Mot de passe modifié"
+        ]:[
+            "status"=>"error",
+            "message"=>"Mot de passe n'a pas été modifié"
+        ];
+        return redirect()->route('admin.users')->with($response);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -141,5 +155,50 @@ class UserController extends Controller
         ];
 
         return redirect()->route('admin.users')->with($response);
+    }
+
+    public function profile(){
+        $user = User::find(Auth::user()->id)->first();
+        return view('admin.users.profile',compact('user'));
+    }
+
+    public function showPassword(){
+        return view('admin.users.password');
+    }
+    public function password(Request $request){
+        $request->validate([
+            'password'=>'required|string|min:8',
+            'password_confirmation'=>'required|min:8|same:password'
+        ]);
+        $update = $this->setPassword($request->password,Auth::user()->id);
+        $response = ($update) ? [
+            "status"=>"success",
+            "message"=>"Mot de passe modifié"
+        ]:[
+            "status"=>"error",
+            "message"=>"Mot de passe n'a pas été modifié"
+        ];
+        return redirect()->back()->with($response);
+    }
+    public function setPassword($password,$userId){
+        $user = User::where('id',$userId)->first();
+        if($user){
+            $update = $user->update([
+                'password'=>Hash::make($password)
+            ]);
+            $response = ($update) ? [
+                "status"=>"success",
+                "message"=>"Mot de passe modifié"
+            ]:[
+                "status"=>"error",
+                "message"=>"Mot de passe n'a pas été modifié"
+            ];
+        }else{
+            $response = [
+                "status"=>"error",
+                "message"=>"Mot de passe n'a pas été modifié et Utilisateur n'existe pas"
+            ];
+        }
+        return back()->with($response);
     }
 }

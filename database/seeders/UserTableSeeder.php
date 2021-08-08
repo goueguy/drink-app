@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $superadmin = User::create([
             "name"=>"Goueguy",
             "lastname"=>"Jean-Louis A.",
             "email"=>"admin@gmail.com",
@@ -29,5 +30,7 @@ class UserTableSeeder extends Seeder
             "password"=>Hash::make("1234567"),
             "role_id"=>1
         ]);
+        $role = Role::where('name','Super Admin')->first();
+        $superadmin->role->permissions()->sync([1,2]);
     }
 }

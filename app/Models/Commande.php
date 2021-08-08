@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Commande extends Model
 {
@@ -11,14 +12,16 @@ class Commande extends Model
 
     protected $fillable = [
         "numero_commmande",
-        "telephone",
-        "customer_name",
         "user_id",
         "status",
-        "total"
+        "total",
+        "client_id"
     ];
 
     public function drinks(){
         return $this->belongsToMany(Drink::class)->withPivot(['quantite']);
+    }
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
 }

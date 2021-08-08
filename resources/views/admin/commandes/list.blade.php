@@ -42,6 +42,7 @@
                                     @if($commande->status==="validée")
                                         <a href="{{route('admin.commandes.change-status',['id'=>$commande->id])}}"><i class="fa fa-lock"></i></a>
                                     @endif
+                                    <a href="#"><i class="fa fa-download"></i></a>
                                     <a href="{{route('admin.commandes.show',['id'=>$commande->id])}}"><i class="fa fa-eye"></i></a>
                                     <a href="{{route('admin.commandes.delete',['id'=>$commande->id])}}" onclick="return confirm('êtes vous sûre');"><i class="fa fa-trash"></i></a>
                                 </td>

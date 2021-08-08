@@ -17,4 +17,8 @@ class Role extends Model
     public function permissions(){
         return $this->belongsToMany(Permission::class);
     }
+
+    public function hasPermissions(array $permission){
+        return $this->permissions()->whereIn('name',$permission)->first();
+    }
 }

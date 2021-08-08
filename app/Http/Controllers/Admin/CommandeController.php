@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Drink;
+use App\Models\Client;
 use App\Models\Commande;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,8 @@ class CommandeController extends Controller
     public function create()
     {
         $drinks = Drink::all();
-        return view('admin.commandes.create',compact('drinks'));
+        $clients = Client::all();
+        return view('admin.commandes.create',compact('drinks','clients'));
     }
 
     /**
@@ -43,8 +45,7 @@ class CommandeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|string|min:3',
-            'telephone'=>'required|string',
+            'client'=>'required',
             'quantites'=>'required',
             'boissons'=>'required'
         ]);
@@ -54,29 +55,13 @@ class CommandeController extends Controller
          //dd( $nextNumber = Facture::pluck('id'));
         $numero_commande = "CMD".'-'.sprintf('%04d',$nextNumber)."-".date('Y');
         $newOrder->numero_commande =  $numero_commande;
-        $newOrder->customer_name = $request->name;
-        $newOrder->telephone = $request->telephone;
+        $newOrder->client_id = $request->client;
         $newOrder->user_id = Auth::user()->id;
         $newOrder->status = "validée";
         $boissons = $request->input('boissons',[]);
         $quantites = $request->input('quantites',[]);
-
         $newOrder->save();
         $update = $this->getTableData($boissons,$quantites,$newOrder);
-        // $dataDrink = [];
-        // $amount = 0;
-        // for($i=0; $i < count($boissons); $i++){
-        //     $dataDrink= DB::table('drinks')->where('id',$boissons[$i])->first();
-        //     DB::table('drinks')->where('id',$boissons[$i])->decrement('quantite',$quantites[$i]);
-        //     if($boissons[$i] != ""){
-        //         $newOrder->drinks()->attach($boissons[$i],['quantite'=>$quantites[$i]]);
-        //     }
-        //     //dd($dataDrink->prix_unitaire);
-        //     $amount += $quantites[$i] * $dataDrink->prix_unitaire;
-        // }
-
-        // $newOrder->total = $amount;
-        // $added = $newOrder->save();
 
         $response = ($update) ? [
             "status"=>"success",

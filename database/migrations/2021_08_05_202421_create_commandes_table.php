@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,11 +18,10 @@ class CreateCommandesTable extends Migration
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
             $table->string('numero_commande');
-            $table->string('customer_name');
-            $table->string('telephone');
             $table->foreignIdFor(User::class);
             $table->string('status')->default('payée');
             $table->double('total')->nullable();
+            $table->foreignIdFor(Client::class);
             $table->timestamps();
         });
     }

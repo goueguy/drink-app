@@ -11,18 +11,15 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Nom du Client" name="name" value="{{old('name')}}">
-                            @error('name')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control @error('telephone') is-invalid @enderror" placeholder="Téléphone du Client" name="telephone" value="{{old('telephone')}}">
-                            @error('telephone')
+                            <select name="client" id="client" class="form-control @error('client') is-invalid @enderror">
+                                <option value="">---Choisir un Client---</option>
+                                @foreach ($clients as $client)
+                                    <option value="{{$client->id}}">{{$client->lastname.' '.$client->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('client')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
